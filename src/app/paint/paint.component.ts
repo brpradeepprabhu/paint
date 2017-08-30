@@ -14,7 +14,8 @@ export class PaintComponent implements OnInit {
   canvas; stage; oldPt; oldMidPt; drawingCanvas;
   color = '#ffff00';
   stroke = 10;
-  trigger = false;
+  trigger = false; paint;
+  textValue = "pradeep";
   constructor(ele: ElementRef) {
 
 
@@ -32,7 +33,7 @@ export class PaintComponent implements OnInit {
     this.stage = new createjs.Stage(this.canvas);
 
     console.log(this.stage);
-    
+
     this.loadImage();
   }
   loadImage() {
@@ -43,13 +44,10 @@ export class PaintComponent implements OnInit {
       image.src = this.image;
       image.onload = () => {
         const bitmap = new createjs.Bitmap(image);
-        const text = new createjs.Text('pradeep');
         if (image.width > 500) {
           bitmap.scaleX = bitmap.scaleY = 500 / image.width;
         }
-        this.stage.addChild(bitmap, text);
-        this.drawingCanvas = new createjs.Shape();
-        this.stage.addChild(this.drawingCanvas);
+        this.stage.addChild(bitmap);
         this.stage.update();
       };
 
@@ -59,15 +57,25 @@ export class PaintComponent implements OnInit {
   }
   handleMouseDown(event) {
     if (!event.primary) { return; }
-    this.oldPt = new createjs.Point(this.stage.mouseX, this.stage.mouseY);
-    this.oldMidPt = this.oldPt.clone();
-    this.trigger = true;
-    this.stage.addEventListener('stagemousemove', this.handleMouseMove.bind(this));
-    this.stage.update();
+    if (this.paint === true) {
+      this.drawingCanvas = new createjs.Shape();
+      this.stage.addChild(this.drawingCanvas);
+      this.oldPt = new createjs.Point(this.stage.mouseX, this.stage.mouseY);
+      this.oldMidPt = this.oldPt.clone();
+      this.trigger = true;
+      this.stage.addEventListener('stagemousemove', this.handleMouseMove.bind(this));
+      this.stage.update();
+    } else {
+      if (this.textValue !== '') {
+        const text = new createjs.Text(this.textValue, "20px Arial");
+        text.x = this.stage.mouseX;
+        text.y = this.stage.mouseY;
+        this.stage.addChild(text);
+      }
+    }
   }
   handleMouseMove(event) {
     if (!event.primary) { return; }
-    console.log(this.trigger)
     if (this.trigger) {
       const midPt = new createjs.Point(this.oldPt.x + this.stage.mouseX >> 1, this.oldPt.y + this.stage.mouseY >> 1);
       this.drawingCanvas.graphics.setStrokeStyle(this.stroke, 'round', 'round')
