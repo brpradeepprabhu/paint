@@ -15,7 +15,7 @@ export class PaintComponent implements OnInit {
   color = '#ffff00';
   stroke = 10;
   trigger = false; paint;
-  textValue = "pradeep";
+  textValue = 'pradeep';
   constructor(ele: ElementRef) {
 
 
@@ -35,6 +35,18 @@ export class PaintComponent implements OnInit {
     console.log(this.stage);
 
     this.loadImage();
+  }
+  undo() {
+    if (this.stage.getNumChildren() > 1) {
+      this.stage.removeChildAt(this.stage.getNumChildren() - 1);
+      this.stage.update();
+    }
+  }
+  clearAll() {
+    while (this.stage.getNumChildren() > 1) {
+      this.stage.removeChildAt(this.stage.getNumChildren() - 1);
+    }
+    this.stage.update();
   }
   loadImage() {
 
@@ -67,7 +79,7 @@ export class PaintComponent implements OnInit {
       this.stage.update();
     } else {
       if (this.textValue !== '') {
-        const text = new createjs.Text(this.textValue, "20px Arial");
+        const text = new createjs.Text(this.textValue, '20px Arial');
         text.x = this.stage.mouseX;
         text.y = this.stage.mouseY;
         this.stage.addChild(text);
