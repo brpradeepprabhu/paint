@@ -3,39 +3,47 @@
   "project": {
     "name": "paint"
   },
-  "apps": [
-    {
-      "root": "src",
-      "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
-      "scripts": ["../node_modules/createjs-collection/createjs.js"],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      }
+  "apps": [{
+    "root": "src",
+    "outDir": "dist",
+    "assets": [
+      "assets",
+      "favicon.ico"
+    ],
+    "index": "index.html",
+    "main": "main.ts",
+    "polyfills": "polyfills.ts",
+    "test": "test.ts",
+    "tsconfig": "tsconfig.app.json",
+    "testTsconfig": "tsconfig.spec.json",
+    "prefix": "app",
+    "styles": [
+
+      "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+      "../node_modules/font-awesome/css/font-awesome.min.css",
+      "assets/lib/colorpicker/css/bootstrap-colorpicker.min.css",
+      "../node_modules/primeng/resources/primeng.min.css",
+      "../node_modules/primeng/resources/themes/omega/theme.css",
+      "styles.css"
+    ],
+    "scripts": [
+      "../node_modules/jquery/dist/jquery.min.js",
+      "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+      "assets/lib/createjs/createjs.min.js",
+      "assets/lib/colorpicker/js/bootstrap-colorpicker.js"
+    ],
+    "environmentSource": "environments/environment.ts",
+    "environments": {
+      "dev": "environments/environment.ts",
+      "prod": "environments/environment.prod.ts"
     }
-  ],
+  }],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
     }
   },
-  "lint": [
-    {
+  "lint": [{
       "project": "src/tsconfig.app.json"
     },
     {
